@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.nz.net.nz/thymeleaf/layout"
+	layout:decorator="template1">
+<head>
+<meta charset="UTF-8">
+<title>Form Produit</title>
+<!-- <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
+ -->
+</head>
+<body>
+	<div layout:fragment="pageContent">
+
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header" >Engregistrement effectue</div>
+				<div class="card-body">	
+					<div class="form-group">
+						<label>ID</label>
+						<label th:text="${produit.id}"></label>
+					</div>
+					<div class="form-group">
+						<label>Designation</label>
+						<label th:text="${produit.designation}"></label>
+					</div>
+					<div class="form-group">
+						<label>Prix</label>
+						<label th:text="${produit.prix}"></label>
+					</div>
+					<div class="form-group">
+						<label>Score</label>
+						<label th:text="${produit.score}"></label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

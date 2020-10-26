@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.nz.net.nz/thymeleaf/layout"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<!-- Brand -->
+		<a class="navbar-brand" href="#">Produits</a>
+		<!-- Links -->
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" th:href="@{produits}">Home</a>
+			</li>
+			<li class="nav-item"><a class="nav-link" href="#">Acheter</a></li>
+			<!-- Dropdown -->
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Produit </a>
+				<div class="dropdown-menu">
+					<a sec:authorize="hasRole('ADMIN')" class="dropdown-item"
+						th:href="@{formProduit}">Ajouter</a> <a class="dropdown-item"
+						href="#">Chercher</a>
+
+				</div></li>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			<!-- Dropdown -->
+			<li class="nav-item dropdown "><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> <span sec:authorize="isAuthenticated()"
+					sec:authentication="name" class="text-danger"> </span> <span
+					sec:authorize="!isAuthenticated()" class="text-danger">Connect
+				</span>
+			</a>
+				<div class="dropdown-menu">
+					<!-- sec:authorize="!isAuthenticated()" -->
+					<a sec:authorize="isAnonymous()" class="dropdown-item"
+						th:href="@{login}">Login</a> <a sec:authorize="isAuthenticated()"
+						class="dropdown-item" th:href="@{logout}">Logout</a> <a
+						class="dropdown-item" href="#">Produit</a>
+				</div></li>
+		</ul>
+	</nav>
+	<section layout:fragment="pageContent"></section>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.nz.net.nz/thymeleaf/layout"
+	layout:decorator="template1"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
+ -->
+</head>
+<body>
+
+
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header">Les Produit</div>
+			</div>
+			<div class="card-body">
+				<form id="form-1">
+					<div class="mb-5">
+						<label for="mot" class="">Mot Cle:</label> <input type="text"
+							name="motcle" id="mot" placeholder="Search" th:value="${motcle}"
+							class="from-control">
+						<button class="btn btn-primary">Chercher</button>
+					</div>
+				</form>
+
+				<table class="table">
+					<tr>
+						<th>ID</th>
+						<th>Des</th>
+						<th>Prix</th>
+						<th>Qn</th>
+						<th>Score</th>
+						<th sec:authorize="hasRole('ADMIN')">Delete</th>
+						<th sec:authorize="hasRole('ADMIN')">Edit</th>
+					</tr>
+
+					<tr th:each="p:${listsproduits.content}">
+						<td th:text="${p.id}"></td>
+						<td th:text="${p.designation}"></td>
+						<td th:text="${p.prix}"></td>
+						<td th:text="${p.quantite}"></td>
+						<td th:text="${p.score}"></td>
+						<td sec:authorize="hasRole('ADMIN')"><a class="btn btn-danger"
+							th:href=@{deletProduit(id=${p.id},size=${size},page=${pagecurrent},motcle=${motcle})}>
+								Delete</a></td>
+						<td sec:authorize="hasRole('ADMIN')"><a th:href="@{editProduit(id=${p.id})}"
+							class="btn btn-success">Edit</a></td>
+					</tr>
+
+				</table>
+
+				<ul class="nav nav-pills">
+					<li th:each="page,status:${pages}"><a
+						th:class="${status.index==pagecurrent?'btn btn-primary':'btn'}"
+						class="btn" th:text="${status.index}"
+						th:href="@{produits(page=${status.index}, size=${size}, motcle=${motcle})}"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

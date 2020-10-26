@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.nz.net.nz/thymeleaf/layout"
+	layout:decorator="template1">
+<head>
+<meta charset="UTF-8">
+<title>Form Produit</title>
+<!-- <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
+ -->
+</head>
+<body>
+	<div layout:fragment="pageContent">
+
+		<div class="container mt-5">
+			<div class="card">
+			<!-- pour recuperer un parametrer dans une resquest HTTp
+			if faut faire ca syantaxe thymeleaf exemple:
+			th:if="${#request.getParameter("le_nom_parametre")=='new'}"
+			-->
+				<div class="card-header" th:if="${produit.id==null}">Formulaire de saisie d'un nouveau Produit</div>
+				<div class="card-header" th:if="${produit.id!=null}">Formulaire de mise a jour d'un nouveau Produit</div>
+				<div class="card-body">
+				
+					<form th:action="@{saveProduit}">
+						<div class="form-group" th:if="${produit.id!=null}">
+							<label>ID</label> <label th:text="${produit.id}"></label> <input
+								type="hidden" name="id" class="form-control"
+								th:value="${produit.id}">
+						</div>
+						<div class="form-group">
+							<label>Designation:</label> <input type="text" name="designation"
+								class="form-control" th:value="${produit.designation}">
+							<span th:errors="${produit.designation}" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label>Prix:</label> <input type="number" name="prix"
+								class="form-control" th:value="${produit.prix}"> <span
+								th:errors="${produit.prix}" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label>Quantite:</label> <input type="number" name="quantite"
+								class="form-control" th:value="${produit.quantite}"> <span
+								th:errors="${produit.quantite}" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label>Score:</label> <input type="number" name="score"
+								class="form-control" th:value="${produit.score}"> <span
+								th:errors="${produit.score}" class="text-danger"></span>
+						</div>
+						<button type="submit" class="btn btn-success">Save</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
